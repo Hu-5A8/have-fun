@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 距離「解脫日」還有…</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 配色方案優化 */
+            --text-pink-title: #be185d; /* 上方標題：柔美粉紅色 */
+            --number-slate: #334155;    /* 倒數數字：深石板色 */
+            --label-pink: #be185d;      /* 標籤文字：柔美粉紅色 */
+            --bottom-blue: #2563eb;     /* 底部文字：寶石藍色 */
+            --card-white: rgba(255, 255, 255, 0.88);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #fff1f2 0%, #fff 50%, #fce7f3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 1.5rem;
+            color: #475569;
+            overflow-x: hidden;
+        }
+
+        /* 專業級自適應卡片 */
+        .main-card {
+            background: var(--card-white);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 1);
+            border-radius: 3rem;
+            box-shadow: 
+                0 10px 30px -5px rgba(51, 65, 85, 0.08),
+                0 25px 60px -12px rgba(219, 39, 119, 0.05);
+            width: 100%;
+            max-width: 1000px;
+            padding: 3.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 標題 */
+        .title-sm {
+            font-size: clamp(1.25rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            color: var(--text-pink-title);
+            letter-spacing: -0.02em;
+        }
+
+        /* 倒數方塊 */
+        .countdown-item {
+            background: #ffffff;
+            border-radius: 2rem;
+            padding: 2.2rem 0.5rem;
+            box-shadow: 0 8px 20px -6px rgba(51, 65, 85, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex: 1;
+            min-width: 150px;
+            border: 1px solid #fff5f7;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px -10px rgba(51, 65, 85, 0.1);
+        }
+
+        /* 倒數大數字 */
+        .value {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(4rem, 14vw, 7rem);
+            font-weight: 900;
+            line-height: 0.9;
+            color: var(--number-slate);
+            letter-spacing: -3px;
+            display: block;
+        }
+
+        /* 標籤 */
+        .label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--label-pink);
+            margin-top: 1rem;
+            letter-spacing: 0.2rem;
+            display: block;
+            opacity: 0.8;
+        }
+
+        /* 裝飾流光 */
+        .bg-sphere {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .countdown-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .countdown-item {
+                min-width: unset;
+                padding: 1.8rem 0.5rem;
+            }
+            .value {
+                font-size: clamp(3.5rem, 18vw, 5rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景裝飾 -->
+    <div class="bg-sphere" style="width: 500px; height: 500px; background: #ffe4e6; top: -150px; right: -100px;"></div>
+    <div class="bg-sphere" style="width: 450px; height: 450px; background: #fdf2f8; bottom: -100px; left: -80px;"></div>
+
+    <div class="main-card">
+        <h1 class="title-sm">
+            <span class="mr-2">🎓</span>距離「解脫日」還有…
+        </h1>
+        
+        <div id="countdown-wrapper" class="countdown-grid flex flex-wrap justify-center gap-4 md:gap-8">
+            <div class="countdown-item">
+                <span id="days" class="value">00</span>
+                <span class="label">天</span>
+            </div>
+            <div class="countdown-item">
+                <span id="hours" class="value">00</span>
+                <span class="label">時</span>
+            </div>
+            <div class="countdown-item">
+                <span id="minutes" class="value">00</span>
+                <span class="label">分</span>
+            </div>
+            <div class="countdown-item">
+                <span id="seconds" class="value">00</span>
+                <span class="label">秒</span>
+            </div>
+        </div>
+
+        <div class="mt-16 pt-8 border-t border-pink-100">
+            <!-- 底部文字更新為凌晨 00:00 -->
+            <p class="text-lg md:text-xl font-bold" style="color: var(--bottom-blue);">
+                畢業典禮日期: 2026年6月12日(五)
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 目標日期更新為 2026-06-12 凌晨 00:00
+        const targetDate = new Date('2026-06-12T00:00:00').getTime();
+        const holidays = ['2026-05-01']; 
+
+        function isWorkday(date) {
+            const day = date.getDay();
+            if (day === 0 || day === 6) return false; 
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            const dateStr = `${y}-${m}-${d}`;
+            return !holidays.includes(dateStr);
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const distance = targetDate - now.getTime();
+
+            if (distance < 0) {
+                document.getElementById('countdown-wrapper').innerHTML = `
+                    <div class="w-full py-10 text-4xl md:text-6xl font-black tracking-tighter" style="color: var(--bottom-blue);">
+                        ✨ 自由萬歲，恭喜解脫 ✨
+                    </div>
+                `;
+                return;
+            }
+
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            let workingDays = 0;
+            let tempDate = new Date(now);
+            tempDate.setHours(0, 0, 0, 0);
+            let finalTarget = new Date(targetDate);
+            finalTarget.setHours(0, 0, 0, 0);
+
+            // 計算剩餘工作天
+            while (tempDate < finalTarget) {
+                tempDate.setDate(tempDate.getDate() + 1);
+                if (isWorkday(tempDate)) workingDays++;
+            }
+
+            document.getElementById('days').innerText = String(workingDays).padStart(2, '0');
+            document.getElementById('hours').innerText = String(h).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
