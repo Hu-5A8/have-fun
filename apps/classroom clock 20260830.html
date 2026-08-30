@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f2ea" />
+  <meta name="description" content="極簡瑞士高級鐘錶風格全螢幕數位時鐘" />
+  <title>Star</title>
+
+  <!--
+    外部字體可選；時鐘本身不依賴任何 JavaScript 套件或框架。
+    若未來 CDN 無法使用，網站仍會正常顯示，只會退回系統字體。
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper: #f7f5ef;
+      --paper-warm: #efede5;
+      --ink: #252523;
+      --muted: #77756e;
+      --fine: rgba(48, 47, 43, .15);
+      --gold: #a58a5b;
+      --gold-light: #cbb98e;
+      --green: #8c9b82;
+      --chalk: #dfe4da;
+      --shadow: rgba(48, 43, 34, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ───────────────── Background classroom ───────────────── */
+
+    .room {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,.95) 0%, rgba(255,255,255,.55) 30%, transparent 62%),
+        linear-gradient(180deg, #faf9f5 0%, var(--paper) 62%, #e7e2d7 62%, #dfd9cd 100%);
+    }
+
+    .sunbeam {
+      position: absolute;
+      width: 62vw;
+      height: 90vh;
+      left: -12vw;
+      top: -30vh;
+      transform: rotate(13deg);
+      background: linear-gradient(90deg, rgba(255,255,255,.55), rgba(255,255,255,0));
+      filter: blur(18px);
+      pointer-events: none;
+    }
+
+    .poster {
+      position: absolute;
+      right: calc((100vw - min(94vw, 1320px)) / 2 + 20px);
+      top: calc(50% - min(42vh, 360px) - 22px);
+      width: auto;
+      padding: 11px 15px;
+      border: 1px solid rgba(70,65,55,.10);
+      background: rgba(255,255,252,.54);
+      box-shadow: 0 18px 40px rgba(65,60,50,.05);
+      transform: rotate(1.5deg);
+      text-align: center;
+      color: #777267;
+      letter-spacing: .16em;
+      font-family: "Noto Serif TC", Georgia, serif;
+      font-size: 12px;
+      line-height: 2.1;
+    }
+
+    .poster-title {\n      white-space: nowrap;\n    }\n\n    .poster > div:first-child { white-space: nowrap; }
+
+    .chalkboard {
+      position: absolute;
+      left: 50%;
+      top: 4vh;
+      width: min(58vw, 900px);
+      height: 15vh;
+      transform: translateX(-50%);
+      border-radius: 4px;
+      background: rgba(106,119,100,.035);
+      border: 1px solid rgba(91,101,86,.07);
+      opacity: .72;
+    }
+
+    .chalkboard::before {
+      content: "1  2  3  4  5     A  B  C     ○  △  □";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(91,101,86,.18);
+      font-family: "DM Mono", monospace;
+      font-size: clamp(11px, 1vw, 16px);
+      letter-spacing: .22em;
+    }
+
+    .shelf {
+      position: absolute;
+      left: 4vw;
+      bottom: 18vh;
+      width: 24vw;
+      max-width: 330px;
+      height: 9px;
+      background: rgba(82,74,61,.11);
+      box-shadow: 0 7px 0 rgba(82,74,61,.035);
+      opacity: .65;
+    }
+
+    .books {
+      position: absolute;
+      left: 5vw;
+      bottom: calc(18vh + 9px);
+      display: flex;
+      align-items: end;
+      gap: 5px;
+      opacity: .48;
+    }
+
+    .book {
+      width: 70px;
+      height: 13px;
+      border: 1px solid rgba(75,69,59,.10);
+      background: #d9d5c9;
+    }
+    .book:nth-child(2) { width: 85px; height: 16px; background: #e4e1d8; }
+    .book:nth-child(3) { width: 55px; height: 12px; background: #cfd8ce; }
+    .book:nth-child(4) { width: 73px; height: 14px; background: #ddd7c8; }
+
+    .plant {
+      position: absolute;
+      right: 6vw;
+      bottom: 13vh;
+      width: 100px;
+      height: 130px;
+      opacity: .35;
+    }
+    .plant::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 27px;
+      width: 47px;
+      height: 45px;
+      border-radius: 0 0 18px 18px;
+      background: #d5cbbb;
+    }
+    .leaf {
+      position: absolute;
+      width: 40px;
+      height: 72px;
+      border-radius: 100% 0 100% 0;
+      background: var(--green);
+      transform-origin: bottom right;
+    }
+    .leaf.l1 { left: 14px; top: 20px; transform: rotate(-28deg); }
+    .leaf.l2 { left: 43px; top: 8px; transform: rotate(12deg) scale(.88); }
+    .leaf.l3 { left: 53px; top: 35px; transform: rotate(46deg) scale(.72); }
+
+    .desk {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 18vh;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.28), transparent 15%),
+        linear-gradient(95deg, #d8d0c1, #e5ded1 46%, #d3cab9);
+      border-top: 1px solid rgba(75,68,57,.08);
+    }
+
+    .desk-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 18vh;
+      height: 1px;
+      background: rgba(75,68,57,.09);
+    }
+
+    /* ───────────────── Main clock ───────────────── */
+
+    .stage {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 5vh 5vw 9vh;
+    }
+
+    .clock {
+      position: relative;
+      width: min(94vw, 1320px);
+      padding: clamp(30px, 5vw, 70px) clamp(24px, 5vw, 72px) clamp(25px, 3.5vw, 48px);
+      border: 1px solid rgba(91, 79, 59, .14);
+      background: rgba(250,249,245,.74);
+      box-shadow:
+        0 35px 90px var(--shadow),
+        0 2px 0 rgba(255,255,255,.8) inset;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .clock::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(165,138,91,.20);
+      pointer-events: none;
+    }
+
+    .brand {
+      position: relative;
+      margin-bottom: clamp(24px, 4vh, 45px);
+      color: #8c7b60;
+      font-family: "DM Mono", monospace;
+      font-size: clamp(9px, .78vw, 12px);
+      font-weight: 400;
+      letter-spacing: .30em;
+      text-transform: uppercase;
+    }
+
+    .brand::after {
+      content: "";
+      display: block;
+      width: 48px;
+      height: 1px;
+      margin: 13px auto 0;
+      background: var(--gold-light);
+    }
+
+    .time-wrap {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: clamp(12px, 2vw, 28px);
+      white-space: nowrap;
+    }
+
+    .time {
+      font-family: "Inter", "SFMono-Regular", Consolas, monospace;
+      font-size: clamp(64px, 13vw, 190px);
+      font-weight: 400;
+      line-height: .9;
+      letter-spacing: -.065em;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: #252523;
+    }
+
+    /*
+      教室遠距閱讀：
+      主數字使用 Inter / 系統等寬備援，採一般「0」字形，不使用 slashed zero。
+      不使用 DM Mono 作為主時間字體，避免部分字體的 0 出現斜線。
+    */
+
+    .ampm {
+      position: relative;
+      top: -.03em;
+      min-width: 2.25em;
+      color: #8c7b60;
+      font-family: Inter, sans-serif;
+      font-size: clamp(15px, 2vw, 30px);
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-align: left;
+    }
+
+    .date {
+      margin-top: clamp(28px, 4vh, 44px);
+      color: #77736a;
+      font-family: Inter, "Noto Serif TC", sans-serif;
+      font-size: clamp(11px, 1.15vw, 16px);
+      font-weight: 400;
+      letter-spacing: .18em;
+    }
+
+    .date .dot {
+      display: inline-block;
+      margin: 0 .7em;
+      color: var(--gold);
+    }
+
+    .footer {
+      position: absolute;
+      z-index: 20;
+      left: 50%;
+      bottom: 4.1vh;
+      transform: translateX(-50%);
+      color: rgba(75,70,62,.56);
+      font-family: "DM Mono", monospace;
+      font-size: clamp(8px, .7vw, 11px);
+      letter-spacing: .18em;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .footer strong {
+      color: rgba(125,103,68,.68);
+      font-weight: 500;
+    }
+
+    .fullscreen-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 16px;
+      z-index: 100;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border: 1px solid rgba(80, 74, 63, .12);
+      border-radius: 12px;
+      background: rgba(250, 249, 245, .68);
+      color: rgba(55, 52, 47, .58);
+      box-shadow:
+        0 7px 20px rgba(50, 45, 35, .055),
+        0 1px 0 rgba(255,255,255,.72) inset;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: opacity .25s ease, transform .2s ease, background .25s ease;
+    }
+
+    .fullscreen-btn:hover {
+      background: rgba(255, 255, 252, .92);
+      color: rgba(55, 52, 47, .72);
+      transform: translateY(-1px);
+    }
+
+    .fullscreen-btn:active {
+      transform: translateY(0) scale(.97);
+    }
+
+    .fullscreen-btn:focus-visible {
+      outline: 2px solid rgba(165, 138, 91, .55);
+      outline-offset: 3px;
+    }
+
+    .fullscreen-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.55;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    :fullscreen .fullscreen-btn,
+    :-webkit-full-screen .fullscreen-btn {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 700px) {
+      .fullscreen-btn {
+        right: 12px;
+        bottom: 12px;
+        width: 38px;
+        height: 38px;
+      }
+
+      .fullscreen-btn svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    .settings-hint {
+      position: absolute;
+      right: 20px;
+      bottom: 16px;
+      z-index: 30;
+      color: rgba(50,48,43,.28);
+      font-size: 10px;
+      opacity: 0;
+      transition: opacity .3s ease;
+      user-select: none;
+    }
+
+    body:hover .settings-hint { opacity: 1; }
+
+    /* ───────────────── Responsive ───────────────── */
+
+    @media (max-width: 700px) {
+      .poster { right: 5vw; top: 6vh; opacity: .38; }
+      .chalkboard { width: 90vw; top: 1vh; height: 14vh; }
+      .shelf, .books { display: none; }
+
+      .stage {
+        padding: 3vh 4vw 10vh;
+      }
+
+      .clock {
+        width: 94vw;
+        padding: 40px 14px 34px;
+      }
+
+      .time-wrap {
+        gap: 10px;
+      }
+
+      .time {
+        font-size: clamp(48px, 17.2vw, 108px);
+        letter-spacing: -.09em;
+      }
+
+      .ampm {
+        font-size: clamp(12px, 3.5vw, 20px);
+        letter-spacing: .08em;
+      }
+
+      .date {
+        letter-spacing: .08em;
+      }
+
+      .footer {
+        bottom: 2.2vh;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="room" aria-hidden="true">
+    <div class="sunbeam"></div>
+
+    <div class="poster">
+      <div class="poster-title">LEARN · EXPLORE</div>
+    </div>
+
+    <div class="chalkboard"></div>
+
+    <div class="shelf"></div>
+    <div class="books">
+      <span class="book"></span>
+      <span class="book"></span>
+      <span class="book"></span>
+      <span class="book"></span>
+    </div>
+
+    <div class="desk"></div>
+    <div class="desk-line"></div>
+  </div>
+
+  <main class="stage">
+    <section class="clock" aria-label="現在時間">
+      <div class="brand">PRECISION · EVERY MOMENT</div>
+
+      <div class="time-wrap">
+        <time id="time" class="time" aria-live="off">12:00:00</time>
+        <span id="ampm" class="ampm">PM</span>
+      </div>
+
+      <div class="date">
+        <span id="weekday">SUNDAY</span>
+        <span class="dot">·</span>
+        <span id="full-date">AUGUST 30, 2026</span>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    DESIGNED BY Allen<strong>·</strong> 28
+  </div>
+
+  <button id="fullscreenBtn" class="fullscreen-btn" type="button"
+          aria-label="Enter full screen" title="Enter full screen">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8.5 4H5.5A1.5 1.5 0 0 0 4 5.5v3"></path>
+      <path d="M15.5 4h3A1.5 1.5 0 0 1 20 5.5v3"></path>
+      <path d="M4 15.5v3A1.5 1.5 0 0 0 5.5 20h3"></path>
+      <path d="M20 15.5v3a1.5 1.5 0 0 1-1.5 1.5h-3"></path>
+    </svg>
+  </button>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const timeEl = document.getElementById("time");
+      const ampmEl = document.getElementById("ampm");
+      const weekdayEl = document.getElementById("weekday");
+      const dateEl = document.getElementById("full-date");
+
+      const weekdays = [
+        "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY",
+        "THURSDAY", "FRIDAY", "SATURDAY"
+      ];
+
+      const months = [
+        "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+        "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+      ];
+
+      const pad = (n) => String(n).padStart(2, "0");
+
+      function updateClock() {
+        const now = new Date();
+
+        let hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+
+        const period = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12;
+        if (hours === 0) hours = 12;
+
+        timeEl.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        ampmEl.textContent = period;
+
+        weekdayEl.textContent = weekdays[now.getDay()];
+        dateEl.textContent =
+          `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+      }
+
+      // ───────────────── Fullscreen ─────────────────
+      const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+      function isFullscreen() {
+        return !!(document.fullscreenElement || document.webkitFullscreenElement);
+      }
+
+      async function toggleFullscreen() {
+        try {
+          if (!isFullscreen()) {
+            const target = document.documentElement;
+
+            if (target.requestFullscreen) {
+              await target.requestFullscreen();
+            } else if (target.webkitRequestFullscreen) {
+              target.webkitRequestFullscreen();
+            } else {
+              // 某些瀏覽器不支援 Fullscreen API
+              alert("此瀏覽器不支援全螢幕模式，請使用瀏覽器的全螢幕功能。");
+            }
+          } else {
+            if (document.exitFullscreen) {
+              await document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            }
+          }
+        } catch (error) {
+          console.warn("Fullscreen request was not completed:", error);
+        }
+      }
+
+      fullscreenBtn.addEventListener("click", toggleFullscreen);
+
+      function updateFullscreenButton() {
+        const active = isFullscreen();
+        fullscreenBtn.setAttribute(
+          "aria-label",
+          active ? "Exit full screen" : "Enter full screen"
+        );
+        fullscreenBtn.setAttribute(
+          "title",
+          active ? "Exit full screen" : "Enter full screen"
+        );
+      }
+
+      document.addEventListener("fullscreenchange", updateFullscreenButton);
+      document.addEventListener("webkitfullscreenchange", updateFullscreenButton);
+
+      // 立即顯示，之後每秒更新。
+      updateClock();
+      setInterval(updateClock, 1000);
+    })();
+  </script>
+</body>
+</html>
