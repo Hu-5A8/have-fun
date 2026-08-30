@@ -536,7 +536,7 @@
         hours = hours % 12;
         if (hours === 0) hours = 12;
 
-        timeEl.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        timeEl.textContent = `${hours}:${pad(minutes)}:${pad(seconds)}`;
         ampmEl.textContent = period;
 
         weekdayEl.textContent = weekdays[now.getDay()];
