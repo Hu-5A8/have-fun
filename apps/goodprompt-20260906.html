@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="國小導師 AI 提示詞一站式工具箱" />
+  <title>國小導師｜AI 教學小幫手</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --cream:#fffaf0; --paper:#ffffff; --ink:#3f3a36; --muted:#81776f;
+      --yellow:#f7c948; --yellow-soft:#fff0b8; --pink:#f6a6b8; --pink-soft:#fff0f4;
+      --peach:#ffd7b5; --line:#eee5d8; --shadow:0 12px 35px rgba(92,71,42,.09);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:"Noto Sans TC",system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fffaf0 0%,#fffdf9 48%,#fff7f7 100%);line-height:1.7}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    .app{min-height:100vh}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,250,240,.9);backdrop-filter:blur(14px);border-bottom:1px solid rgba(238,229,216,.8)}
+    .topbar{max-width:1320px;margin:auto;padding:14px 24px;display:flex;align-items:center;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand strong{display:block;font-size:18px;letter-spacing:.02em}
+    .brand small{display:block;color:var(--muted);font-size:12px}
+    .search{position:relative;flex:1;max-width:560px}
+    .search input{width:100%;border:1px solid var(--line);background:#fff;border-radius:15px;padding:11px 16px 11px 42px;outline:none;transition:.2s}
+    .search input:focus{border-color:#e9bd58;box-shadow:0 0 0 4px rgba(247,201,72,.14)}
+    .search span{position:absolute;left:15px;top:9px;font-size:19px;color:var(--muted)}
+    .count{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap}
+    main{max-width:1320px;margin:auto;padding:32px 24px 60px}
+    .hero{margin-bottom:26px}
+    .hero-card{background:linear-gradient(135deg,#fff 0%,#fff7d8 58%,#ffeef2 100%);border:1px solid #f3e6c9;border-radius:28px;padding:34px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero-card:after{content:"✦";position:absolute;right:28px;top:18px;font-size:80px;color:rgba(246,166,184,.18);transform:rotate(12deg)}
+    .eyebrow{display:inline-flex;gap:7px;align-items:center;background:#fff;border:1px solid #f0dfba;padding:5px 11px;border-radius:999px;color:#866b32;font-size:12px;font-weight:700}
+    h1{font-size:clamp(28px,4vw,43px);line-height:1.2;margin:15px 0 12px;letter-spacing:-.03em}
+    .hero-card p{margin:0;color:#6f655e;max-width:700px}
+    .tips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .tip{background:rgba(255,255,255,.8);border:1px solid #f0e6d7;padding:6px 10px;border-radius:10px;font-size:12px;color:#74675e}
+    .layout{display:grid;grid-template-columns:235px 1fr;gap:22px;transition:grid-template-columns 0.3s}
+    .layout.collapsed{grid-template-columns:auto 1fr}
+    .sidebar{position:sticky;top:83px;align-self:start}
+    .side-header{display:flex;align-items:center;justify-content:space-between;margin:5px 8px 10px;cursor:pointer;user-select:none}
+    .side-title{font-weight:800;font-size:14px;margin:0}
+    .toggle-btn{background:none;border:none;font-size:10px;color:var(--muted);padding:4px;transition:transform 0.3s}
+    .cat-list{display:block}
+    .sidebar.collapsed .cat-list{display:none}
+    .sidebar.collapsed .side-header{margin-bottom:0}
+    .sidebar.collapsed .toggle-btn{transform:rotate(-90deg)}
+    .cat{width:100%;border:1px solid transparent;background:transparent;text-align:left;padding:11px 13px;border-radius:13px;color:#685f59;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+    .cat:hover{background:#fff}
+    .cat.active{background:#fff4c9;border-color:#f1ddb0;color:#745a1e;font-weight:700}
+    .cat .num{font-size:11px;background:#f4eee5;color:#8b7e74;padding:1px 7px;border-radius:999px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;min-height:350px;transition:transform .18s,box-shadow .18s}
+    .card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(92,71,42,.13)}
+    .card-head{display:flex;gap:12px;align-items:flex-start}
+    .icon{width:44px;height:44px;flex:0 0 44px;border-radius:14px;display:grid;place-items:center;font-size:21px;background:var(--yellow-soft)}
+    .card:nth-child(3n) .icon{background:var(--pink-soft)}
+    .card:nth-child(4n) .icon{background:#ffe8d7}
+    .card h2{font-size:17px;line-height:1.4;margin:1px 0 3px}
+    .tag{font-size:11px;color:#9a8776}
+    .prompt{margin:15px 0 16px;padding:16px;border-radius:15px;background:#fffcf7;border:1px solid #f0e9df;color:#4e4843;font-size:16px;line-height:1.75;white-space:pre-wrap;flex:1;overflow:auto;max-height:360px}
+    .actions{display:flex;gap:9px}
+    .copy{flex:1;border:0;border-radius:12px;padding:10px 12px;background:var(--ink);color:white;font-weight:700;transition:.18s}
+    .copy:hover{transform:translateY(-1px);opacity:.92}
+    .copy.copied{background:#6a9d68}
+    .empty{grid-column:1/-1;text-align:center;background:#fff;border:1px dashed #dfd4c5;border-radius:20px;padding:50px;color:var(--muted)}
+    footer{text-align:center;color:#9a8e84;font-size:12px;margin-top:35px}
+    .toast{position:fixed;right:22px;bottom:22px;background:#3f3a36;color:#fff;padding:12px 17px;border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.15);opacity:0;transform:translateY(12px);pointer-events:none;transition:.22s;z-index:50;font-size:13px}
+    .toast.show{opacity:1;transform:translateY(0)}
+    .backtop{position:fixed;right:20px;bottom:75px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);display:none}
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}
+      .sidebar{position:static;overflow:auto;padding-bottom:4px;display:block}
+      .side-header{display:none}
+      .cat-list{display:flex;gap:7px}
+      .sidebar.collapsed .cat-list{display:flex}
+      .cat{white-space:nowrap;width:auto;margin:0}
+      .grid{grid-template-columns:1fr}.count{display:none}
+    }
+    @media(max-width:600px){
+      .topbar{padding:11px 14px}.brand{min-width:auto}.brand small{display:none}.brand strong{font-size:15px}.search{max-width:none}.hero-card{padding:24px}main{padding:22px 14px 45px}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div><strong>國小導師 AI 小幫手</strong><small>Teacher Prompt Toolkit</small></div>
+    </div>
+    <div class="search"><span>⌕</span><input id="search" type="search" placeholder="搜尋" /></div>
+    <div class="count" id="count"></div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-card">
+      <span class="eyebrow">✨ 每天都能用的導師工具箱</span>
+      <h1>把繁瑣的備課、溝通與班務，<br>交給 AI 幫你先想一輪。</h1>
+      <p>精選適合國小導師的提示詞。點一下「複製提示詞」，就能貼到 ChatGPT、Gemini、Claude 或其他 AI 工具使用。</p>
+      <div class="tips"><span class="tip">📋 一鍵複製</span><span class="tip">🔎 快速搜尋</span><span class="tip">📱 手機也好用</span></div>
+    </div>
+  </section>
+
+  <section class="layout" id="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-header" id="toggleSidebar" title="點擊展開/收合分類">
+        <div class="side-title">提示詞分類</div>
+        <button class="toggle-btn">▼</button>
+      </div>
+      <div class="cat-list">
+        <button class="cat active" data-cat="全部">全部 <span class="num">18</span></button>
+        <button class="cat" data-cat="親師溝通">💬 親師溝通 <span class="num">3</span></button>
+        <button class="cat" data-cat="教學備課">📚 教學備課 <span class="num">4</span></button>
+        <button class="cat" data-cat="班級經營">🌱 班級經營 <span class="num">4</span></button>
+        <button class="cat" data-cat="評量與評語">📝 評量與評語 <span class="num">4</span></button>
+        <button class="cat" data-cat="行政班務">📋 行政班務 <span class="num">2</span></button>
+        <button class="cat" data-cat="AI工具">🤖 AI 工具 <span class="num">1</span></button>
+      </div>
+    </aside>
+
+    <section class="grid" id="grid"></section>
+  </section>
+  <footer>給每天認真陪孩子長大的老師 🌷　｜　提示詞可依班級實際情況自行修改</footer>
+</main>
+<button class="backtop" id="backtop" title="回到頂端">↑</button>
+<div class="toast" id="toast">已複製到剪貼簿！</div>
+</div>
+
+<script>
+const prompts = [
+{id:1,cat:"親師溝通",icon:"✍️",title:"文字校對與潤飾",text:`你是一位國小導師。請校對並潤飾以下要發布給家長的 LINE 文字訊息。
+
+要求：
+1. 修正錯別字、用字與標點符號。
+2. 語氣有條理、有禮、專業，但不冗長。
+3. 採用容易閱讀的分段或條列式排版，並適度加入自然、不過量的 emoji。
+4. 保留原本想傳達的重點，不自行新增未提供的事實。
+5. 直接輸出「可以直接傳給家長」的版本，不需解釋修改原因。
+
+原始草稿：
+[請貼上文字]`},
+{id:2,cat:"AI工具",icon:"🔍",title:"圖片 OCR 精準提取",text:`請精準進行 OCR 辨識，逐字提取我上傳圖片中的文字。
+
+要求：
+1. 儘可能保留原始段落、換行與標題格式。
+2. 看不清楚、模糊或潦草的字，一律以「？」標示，絕對不要自行猜測。
+3. 不要自行修正文句、錯字或改寫內容。
+4. 若圖片中有表格，請以容易複製的文字或 Markdown 表格呈現。
+5. 直接輸出辨識結果，不要任何前後問候語或解釋。`},
+{id:3,cat:"親師溝通",icon:"💬",title:"家長溝通與親師回應",text:`你是一位高 EQ、溫暖而專業的國小導師。家長針對「[家長詢問或抱怨重點]」聯繫我。
+
+背景資料：
+• 學生：[學生姓名]
+• 客觀經過：[事件客觀經過]
+• 老師處置：[老師的處置或建議]
+
+請依以下架構擬定一份可直接傳送的回覆草稿：
+同理與接住 → 客觀還原事實 → 說明老師處置 → 邀請家長在家配合 → 溫暖結語。
+
+要求：
+1. 不責備、不貼標籤、不與家長對立。
+2. 不虛構未提供的資訊。
+3. 若原始資訊不足，請用中性的「可再確認」語句處理。
+4. 語氣溫和、專業、有界線，避免過度承諾。
+
+家長訊息／重點：
+[請貼上]`},
+{id:4,cat:"教學備課",icon:"🎯",title:"班級活動與教學發想",text:`請為國小學生設計一份「[活動主題／節慶]」教學活動企劃。
+
+條件：
+• 時間長度：[時間長度]
+• 可用資源／場地：[可用資源／場地]
+• 學習目標：[學習目標，可不填]
+
+企劃需包含：
+1. 引起動機（5–10 分鐘）。
+2. 主體活動：設計 3 個簡單、好操作、適合該年級的闖關或活動步驟。
+3. 反思與總結。
+4. 老師課前準備與材料清單。
+5. 班級管理提醒。
+
+請用表格呈現時間分配，活動說明活潑但具體，讓老師拿到後可以直接執行。`},
+{id:5,cat:"評量與評語",icon:"🌷",title:"期末成績單評語",text:`請為學生「[學生姓名]」撰寫期末成績單評語，約 [字數] 字。
+
+學生特質：
+• 優點：[優點]
+• 需要努力的地方：[需改善處]
+• 本學期值得肯定的具體表現：[具體表現，可不填]
+
+要求：
+1. 使用「三明治回饋法」：具體肯定優勢 → 溫婉提出努力方向 → 正向期許。
+2. 避免「粗心、懶惰、不專心、問題學生」等標籤式字眼，改用可改善、可觀察的描述。
+3. 語氣溫暖、真誠、像導師親自寫給孩子。
+4. 不誇大、不虛構學生沒有提供的表現。
+5. 直接輸出可放入成績單的版本。`},
+{id:6,cat:"教學備課",icon:"➗",title:"生活化素養題庫",text:`我正在教國小的「[單元名稱]」。請設計 [題目數量] 題結合「[學生感興趣的主題]」的生活化素養應用題。
+
+要求：
+1. 故事情境自然、連貫，用詞符合該年級兒童的理解能力。
+2. 難度限制：[難度與數字範圍條件]。
+3. 題目要有變化，不要只是換數字。
+4. 每題附上正確答案、詳細解題步驟與老師可提醒學生的解題關鍵。
+5. 最後整理「答案總表」。
+6. 請檢查每題的數字、單位與答案是否一致。`},
+{id:7,cat:"班級經營",icon:"🫶",title:"正向管教與師生對話",text:`班上發生「[學生違規或情緒事件]」的狀況。請運用正向管教、非暴力溝通與情緒教養概念，擬定一份老師可以實際使用的師生對話腳本。
+
+需包含：
+1. 安定情緒的起手式：一句能降低防備、讓孩子願意說話的話。
+2. 開放式提問：協助孩子說出感受、需求與事情經過。
+3. 溫和而堅定地重申班級界線。
+4. 引導孩子思考修復行動與下一次可以怎麼做。
+5. 共同約定一句簡單、孩子記得住的行動目標。
+
+要求：避免羞辱、威脅、諷刺與公開比較；句子要符合孩子聽得懂、老師說得出口的語氣。`},
+{id:8,cat:"親師溝通",icon:"🎤",title:"班親會講稿",text:`我是國小導師，請幫我擬定一份約 [演講時間] 分鐘的班親會講稿。
+
+核心理念：[教育理念]
+需要家長配合：[家長配合事項]
+
+結構：
+溫暖開場 → 該年齡段孩子的發展特徵 → 我的帶班理念 → 班級學習與生活重點 → 懇請家長配合事項 → Q&A。
+
+要求：
+1. 語氣真誠、專業、親切，不要像制式公文。
+2. 不把孩子的發展特徵說成每個孩子都一樣。
+3. 段落間標註適當的【停頓】、【微笑】、【看向家長】等簡短提示。
+4. 家長配合事項請說明「為什麼重要」以及「在家可以怎麼做」。`},
+{id:9,cat:"班級經營",icon:"🌈",title:"班級常規正向轉譯",text:`請將班級常規「[原始常規或禁止事項]」轉譯成兒童友善、正向而有力量的語言。
+
+要求：
+1. 將「禁止／不要」改成「我們可以／請做到」的正向句型。
+2. 用孩子聽得懂的方式說明「這樣做的好處」。
+3. 提供三種版本：
+   (1) 簡潔口訣版
+   (2) 班會故事引導版
+   (3) 聯絡簿／家長溝通版
+4. 文字要短、好記、適合張貼在教室。
+5. 避免空泛的說教，加入具體可觀察的行動。`},
+{id:10,cat:"行政班務",icon:"📋",title:"班務代課交接單",text:`我明天將請假 [請假天數] 天，請幫我整理一份結構清晰、代課老師可以快速閱讀的「代課交接清單」。
+
+資料：
+• 作息注意：[作息注意事項]
+• 需關照學生：[需要特別留意的學習／生活狀況]
+• 交代任務：[代課期間必須完成的任務]
+• 課程進度：[課程進度，可不填]
+• 其他提醒：[其他事項，可不填]
+
+要求：
+1. 使用 Markdown 表格＋條列式呈現。
+2. 依「時間／課程／任務／注意事項」整理，一目了然。
+3. 特別重要事項放在最前面。
+4. 預留「緊急聯絡人／聯絡方式」欄位。
+5. 不自行補充未提供的學生敏感資訊。`},
+{id:11,cat:"教學備課",icon:"💡",title:"一節課快速備課",text:`請幫我設計一節適合國小學生的「[科目／單元]」課程。
+
+課程時間：[分鐘]
+學生已具備的先備知識：[先備知識]
+本節學習目標：[學習目標]
+教材／教具：[可用資源]
+
+請產出：
+1. 3 分鐘引起動機
+2. 核心教學流程（含老師說什麼、學生做什麼）
+3. 1 個互動活動
+4. 形成性評量／快速檢核
+5. 可能的學生迷思與老師回應
+6. 課末 2 分鐘總結
+
+請以「老師拿到就能上課」為標準，避免不切實際的活動。`},
+{id:12,cat:"教學備課",icon:"🧩",title:"差異化教學設計",text:`同一個「[科目／單元／學習目標]」，我的班級有不同學習速度的孩子。
+
+請設計「基礎／標準／挑戰」三層任務。
+
+要求：
+1. 三層都圍繞同一學習目標。
+2. 基礎層降低閱讀或操作負擔，但不要降低核心學習目標。
+3. 挑戰層增加推理、解釋、創造或應用。
+4. 每層提供具體題目／任務與老師引導語。
+5. 最後提供老師如何在同一節課中分組與巡視的建議。`},
+{id:13,cat:"教學備課",icon:"🧠",title:"錯誤分析與補救教學",text:`以下是學生在「[科目／單元]」的作答情況：
+
+學生答案／錯誤類型：
+[貼上學生作答或描述]
+
+請協助我：
+1. 判斷可能的錯誤原因或迷思概念。
+2. 區分「概念不懂／方法不熟／粗心或閱讀誤解／表達問題」等可能性。
+3. 設計 10–15 分鐘的補救教學活動。
+4. 提供老師可以說的引導語，避免直接告訴答案。
+5. 設計 2 題由簡到難的檢核題。
+6. 最後告訴我下次教學可以提前加入哪一個提醒。`},
+{id:14,cat:"評量與評語",icon:"📊",title:"學習單與評量規準",text:`請為國小「[科目／單元]」設計一份簡單、清楚的學習單或小測驗。
+
+學習目標：[目標]
+題數：[題數]
+時間：[分鐘]
+難度：[難度]
+
+請包含：
+• 題目
+• 題型
+• 配分
+• 標準答案
+• 簡易評分規準
+• 可能的錯誤與補救建議
+
+請確認題目與學習目標對齊，文字符合該年級閱讀能力，並避免不必要的文字負擔。`},
+{id:15,cat:"評量與評語",icon:"⭐",title:"個別學生鼓勵回饋",text:`請根據以下觀察紀錄，寫出 3 種適合老師對國小學生說的個別鼓勵回饋。
+
+學生：[姓名]
+今天的具體表現：[觀察紀錄]
+我希望孩子下一步：[下一步目標]
+
+三種版本：
+A. 一句話即時鼓勵
+B. 聯絡簿／作業上的短回饋
+C. 私下談話的溫暖回饋
+
+要求：指出具體行為，而不是只說「你好棒」；讓孩子知道自己哪裡進步，以及下一步可以怎麼做。`},
+{id:16,cat:"班級經營",icon:"🪴",title:"班級問題診斷",text:`我的班級最近出現以下情況：
+[描述問題]
+
+請你以「國小班級經營顧問」角度協助我，不先假設孩子是故意的。
+
+請分析：
+1. 可能原因：學生、同儕、課程、環境、規則理解等面向。
+2. 我可以先觀察的 3 個線索。
+3. 明天就能做的 3 個小調整。
+4. 一週內可以嘗試的班級策略。
+5. 如何判斷策略是否有效。
+
+請給我務實、低成本、適合該年級的做法。`},
+{id:17,cat:"班級經營",icon:"😊",title:"晨光時間／班會活動",text:`請為國小學生設計一個「[主題：情緒、同理、合作、責任、感謝……]」的 15–20 分鐘晨光或班會活動。
+
+請包含：
+1. 1 分鐘老師開場引導語
+2. 一個全班都能參與的小活動
+3. 2–3 個開放式提問
+4. 一句孩子可以帶走的班級金句
+5. 若學生反應冷淡，老師可以使用的備用方案
+
+活動要安全、簡單、不要求孩子公開分享私人或敏感經驗。`},
+{id:18,cat:"評量與評語",icon:"📝",title:"小學生作文批改",text:`我會上傳一張學生的紙本作文照片。請根據照片內容協助我批改，並符合以下要求：
+
+1. 錯字檢查：辨識並挑出文章中的錯別字。
+2. 段落建議：針對每一段，具體指出哪裡可以寫得更好（例如：句子可以加長、形容詞更豐富等）。
+3. 總結評語：在最後給予一段給學生的整體鼓勵與評語，字數請務必控制在 30 字以內。
+
+要求：
+• 語氣溫和、正向，以鼓勵取代批評。
+• 用詞必須淺顯易懂，符合國小學生的閱讀與理解能力。`}
+];
+
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const count = document.getElementById("count");
+const toast = document.getElementById("toast");
+const layout = document.getElementById("layout");
+const sidebar = document.getElementById("sidebar");
+const toggleSidebar = document.getElementById("toggleSidebar");
+let currentCat = "全部";
+
+if(toggleSidebar){
+  toggleSidebar.addEventListener("click", ()=>{
+    layout.classList.toggle("collapsed");
+    sidebar.classList.toggle("collapsed");
+  });
+}
+
+function render(){
+  const q = search.value.trim().toLowerCase();
+  let list = prompts.filter(p => {
+    const catOK = currentCat === "全部" ? true : p.cat === currentCat;
+    const searchOK = !q || (p.title+p.cat+p.text).toLowerCase().includes(q);
+    return catOK && searchOK;
+  });
+  grid.innerHTML = "";
+  count.textContent = `顯示 ${list.length} / ${prompts.length}`;
+  
+  if(!list.length){
+    grid.innerHTML = `<div class="empty">🌷 找不到符合條件的提示詞<br><small>可以換個關鍵字，或看看其他分類。</small></div>`;
+    return;
+  }
+  list.forEach(p => {
+    const el = document.createElement("article");
+    el.className = "card";
+    el.innerHTML = `
+      <div class="card-head">
+        <div class="icon">${p.icon}</div>
+        <div><h2>${escapeHTML(p.title)}</h2><div class="tag">${escapeHTML(p.cat)}</div></div>
+      </div>
+      <div class="prompt">${escapeHTML(p.text)}</div>
+      <div class="actions">
+        <button class="copy" data-id="${p.id}">📋 複製提示詞</button>
+      </div>`;
+    grid.appendChild(el);
+  });
+}
+function escapeHTML(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+async function copyPrompt(id){
+  const p=prompts.find(x=>x.id===id);
+  try{
+    await navigator.clipboard.writeText(p.text);
+  }catch(e){
+    const ta=document.createElement("textarea");ta.value=p.text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
+  }
+  toast.textContent="已複製到剪貼簿，可以貼到任何 AI 平台囉！";
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1800);
+  document.querySelector(`.copy[data-id="${id}"]`).classList.add("copied");
+  document.querySelector(`.copy[data-id="${id}"]`).textContent="✓ 已複製";
+  setTimeout(()=>{const b=document.querySelector(`.copy[data-id="${id}"]`);if(b){b.classList.remove("copied");b.textContent="📋 複製提示詞"}},1500);
+}
+grid.addEventListener("click",e=>{
+  const c=e.target.closest(".copy");
+  if(c) copyPrompt(Number(c.dataset.id));
+});
+document.querySelectorAll(".cat").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".cat").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active"); currentCat=btn.dataset.cat; render();
+}));
+search.addEventListener("input",render);
+const back=document.getElementById("backtop");
+window.addEventListener("scroll",()=>back.style.display=scrollY>500?"block":"none");
+back.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+render();
+</script>
+</body>
+</html>
