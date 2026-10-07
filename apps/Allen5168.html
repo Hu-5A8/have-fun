@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>巨人的肩膀 · 思維顧問</title>
+<link rel="icon" href="gold.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"></noscript>
+<meta name="theme-color" content="#eaf4ff">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f8ff;--card:#fff;--ink:#16253d;--sub:#5f7089;--line:#dbe7f7;--soft:#eaf3ff;--c:#2563eb;--c2:#0ea5e9;--gold:#f5a623;--warm:#fff7e6;--on:#fff;--shadow:0 6px 24px rgba(37,99,235,.09)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:linear-gradient(180deg,#eaf4ff 0,#f7fbff 360px,#f3f8ff 100%);background-color:var(--bg);color:var(--ink);font:400 15px/1.8 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+h1,h2,h3{font-family:"Noto Serif TC","Songti TC","PMingLiU",serif;margin:0}
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#dff0ff 0%,#f4f9ff 45%,#fff3d6 100%);color:var(--ink);padding:48px 20px 40px}
+.hero::before{pointer-events:none;content:"";position:absolute;right:-60px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,64,.55) 0,rgba(255,196,64,.18) 45%,rgba(255,196,64,0) 70%)}
+.hero::after{pointer-events:none;content:"";position:absolute;left:-80px;bottom:-140px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(56,160,255,.22) 0,rgba(56,160,255,0) 68%)}
+.in{max-width:1120px;margin:0 auto;position:relative;z-index:1}
+.hero h1{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:.03em;line-height:1.25;background:linear-gradient(90deg,#1d4ed8,#0ea5e9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:14px 0 0;max-width:40ch;color:#41536e;font-size:16px}
+.hero i{display:block;width:72px;height:5px;border-radius:5px;background:linear-gradient(90deg,var(--gold),#ffd36b);margin-top:20px}
+.tabs{background:rgba(255,255,255,.85);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+.tabs .in{padding:10px 20px;display:flex;gap:8px}
+.tab{background:none;border:1px solid transparent;border-radius:999px;color:var(--sub);padding:7px 16px;font:500 15px "Noto Sans TC",sans-serif;cursor:pointer;transition:background-color .15s,color .15s}
+.tab:hover{background:var(--soft);color:var(--c)}
+.tab[aria-pressed="true"]{color:#fff;background:linear-gradient(135deg,var(--c),var(--c2));font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,.28)}
+.wrap{max-width:1120px;margin:0 auto;padding:26px 20px 56px}
+.layout{display:grid;grid-template-columns:290px 1fr;gap:28px;align-items:start}
+.list{display:grid;gap:8px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;padding:2px 6px 2px 2px}
+.pick[hidden]{display:none}.pick{display:flex;gap:12px;align-items:center;text-align:left;width:100%;background:var(--card);color:inherit;border:1px solid var(--line);border-radius:12px;padding:9px 12px;cursor:pointer;font:inherit;transition:border-color .15s,transform .15s,box-shadow .15s}
+.pick:hover{border-color:#a9c7f5;transform:translateY(-1px);box-shadow:var(--shadow)}
+.pick:focus-visible,.tab:focus-visible,.btn:focus-visible,textarea:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+.mono{flex:none;width:38px;height:38px;border-radius:10px;background:var(--soft);color:var(--c);display:grid;place-items:center;font:800 17px "Noto Serif TC",serif}
+.pick b{display:block;font-weight:500;line-height:1.35}
+.pick small{color:var(--sub);line-height:1.3;display:block}
+.pick[aria-pressed="true"]{border-color:var(--c);background:linear-gradient(135deg,#f2f7ff,#fff);box-shadow:var(--shadow)}
+.pick[aria-pressed="true"] b{font-weight:700}
+.pick[aria-pressed="true"] .mono{background:linear-gradient(135deg,var(--c),var(--c2));color:var(--on)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:34px;border-top:5px solid var(--gold)}
+.cat{display:inline-block;color:var(--c);background:var(--soft);border-radius:999px;padding:2px 12px;font-weight:700;font-size:13px}
+.panel h2{font-size:34px;font-weight:800;margin-top:10px;line-height:1.3}
+.en{color:var(--sub);font-size:14px}
+.quote{font:600 21px/1.7 "Noto Serif TC",serif;margin:24px 0;padding:16px 22px;border-radius:14px;background:linear-gradient(120deg,#eaf4ff,#fff7e6);border-left:5px solid var(--gold)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+h3{font-size:16px;margin:0 0 10px;padding-bottom:8px;border-bottom:2px solid var(--c2);color:var(--c)}
+ul{margin:0;padding:0;list-style:none}
+li{position:relative;padding:9px 0 9px 22px;border-bottom:1px solid var(--line)}
+li::before{content:"";position:absolute;left:4px;top:19px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.blind{margin-top:26px;padding:14px 18px;background:var(--warm);border-radius:12px;border-left:5px solid var(--gold)}
+.blind div+div{margin-top:6px}
+.ask{margin-top:32px;padding-top:24px;border-top:2px dashed var(--line)}
+textarea{width:100%;min-height:104px;resize:vertical;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fbfdff;color:var(--ink);font:inherit}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{border:0;border-radius:999px;padding:11px 26px;font:500 15px "Noto Sans TC",sans-serif;cursor:pointer;background:linear-gradient(135deg,var(--c),var(--c2));color:var(--on);box-shadow:0 4px 14px rgba(37,99,235,.28);transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);border-radius:12px;padding:16px;margin:14px 0 0;font:400 14px/1.75 "Noto Sans TC",sans-serif;max-height:360px;overflow:auto}
+.note{color:var(--sub);font-size:13px;margin-top:8px}
+.sg{display:flex;flex-direction:column;gap:6px;align-items:flex-start;margin-bottom:12px}.sg span{color:var(--sub);font-size:13px}.chip{text-align:left;background:var(--soft);border:1px solid var(--line);color:var(--ink);padding:8px 14px;border-radius:12px;font:inherit;font-size:14px;line-height:1.55;cursor:pointer;transition:border-color .15s,background-color .15s}.chip:hover{border-color:var(--c);background:#fff}.chip:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.cols{grid-template-columns:1fr;gap:22px}.list{position:static;max-height:none;grid-template-columns:1fr 1fr;padding:0}.pick small{display:none}.panel{padding:22px}.panel h2{font-size:28px}.hero::before{width:240px;height:240px}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="in"><h1>巨人的肩膀</h1><p>三十位思想家,一次選一位。用他的思維看你眼前的問題,決定仍由你做。</p><i></i></div></div>
+<nav class="tabs" aria-label="分類"><div class="in" id="tabs"></div></nav>
+<div class="wrap"><div class="layout">
+<div class="list" id="list" role="group" aria-label="選擇大師"></div>
+<main class="panel" id="panel" aria-live="polite"></main>
+</div></div>
+<script>
+const RAW=[
+{n:"納瓦爾",e:"Naval Ravikant",t:"槓桿・專長・自由",c:"#2f7d6d",
+q:"找到你真正在乎又擅長的事,用槓桿放大它,讓時間為你複利。",
+p:["專長無法被教出來:順著好奇心去學,做到別人難以取代","槓桿有四種:人力、資本、程式碼、媒體,後兩者不需要許可","賺錢靠擁有資產,不是出賣時間","長期遊戲配長期夥伴,複利才會成立","快樂是一種技能,是平靜,不是持續的刺激"],
+k:["這件事我能擁有股權或產出可複製嗎?","我是在出賣時間,還是在累積槓桿?","五年後還值得做嗎?","這是不是我的專長與好奇心交會處?"],
+b:"偏向創業與科技圈的個人路徑,對需要團隊協作、體制內晉升的情境參考性較低。",
+r:"《Naval 寶典》(Eric Jorgenson 整理)"},
+{n:"蒙格",e:"Charlie Munger",t:"心智模型・逆向思考",c:"#6b4fa0",
+q:"反過來想,總是反過來想:先知道怎麼會失敗,然後避開它。",
+p:["掌握多學科的心智模型,別只用單一鐵錘看世界","逆向思考:要成功,先列出失敗路徑","待在能力圈內,承認自己不懂的","注意人性誤判,如激勵扭曲、從眾、確認偏誤","耐心等待少數絕佳機會,然後重押"],
+k:["這在我的能力圈內嗎?","什麼情況下這件事會徹底失敗?","誰在激勵我做這個決定?","我有沒有被某種偏誤綁架?"],
+b:"偏重避免犯錯與高品質篩選,對需要快速試錯的早期探索可能太保守。",
+r:"《窮查理的普通常識》"},
+{n:"貝佐斯",e:"Jeff Bezos",t:"長期主義・後悔最小化",c:"#c98a1b",
+q:"用八十歲回頭看:你會後悔沒試,還是後悔試了?",
+p:["後悔最小化框架:站在老年的自己看今天的選擇","區分單向門(不可逆)與雙向門(可逆)決定","對客戶痴迷,對競爭者好奇","願意長期被誤解,把時間拉長","高標準加 70% 資訊就行動"],
+k:["這是單向門還是雙向門?","八十歲的我,會怎麼評價這個選擇?","我需要九成資訊,還是七成就夠?","五到十年後,什麼不會變?"],
+b:"偏好擴張與長期押注,對資源有限、需要短期現金流的處境要調整。",
+r:"《貝佐斯的股東信》"},
+{n:"塔雷伯",e:"Nassim Taleb",t:"反脆弱・不對稱風險",c:"#a03a4a",
+q:"別只求穩,要讓自己在波動中受益;先確保不會被一次打垮。",
+p:["避免毀滅性風險:能存活,才有機會複利","尋找不對稱:下行有限、上行無限","槓鈴策略:極度保守加小額極度冒險","相信親身承擔風險者,不信只出主意者","少而精,留餘裕,否定脆弱"],
+k:["最壞情況我承擔得起嗎?","這個選擇下行有限、上行很大嗎?","給建議的人自己有承擔後果嗎?","我該如何留出冗餘與備案?"],
+b:"對機率思考的態度偏激進,日常決策中可能過度謹慎。",
+r:"《黑天鵝效應》《反脆弱》"},
+{n:"拿破崙希爾",e:"Napoleon Hill",t:"成功哲學・明確目標・信念",c:"#e0a526",
+q:"心中能想像並且相信的,就有機會達成:先有明確的目標,再用行動去追。",
+p:["明確的主要目標:寫下你要什麼、何時達成、願意付出什麼","渴望、信念與行動:把想法轉成每天可執行的計畫","智囊團:與志同道合的人結盟,集合彼此的知識與力量","堅持不懈:遇到挫折時再多走一步,別在最接近成功時放棄","多走一哩路:付出比所得更多的價值,機會自然會來找你"],
+k:["我真正想要的明確目標是什麼?我寫得出來嗎?","我為它訂了期限與每日行動嗎?","誰能加入我的智囊團,補足我不足的部分?","遇到挫折時,我是在放棄,還是調整方法再前進?"],
+b:"強調信念與積極心態,容易讓人低估運氣、資源與環境的影響;宜搭配數據與現實檢驗,不能只靠正向想像。",
+r:"《思考致富》《成功法則》"},
+{n:"孫子",e:"Sun Tzu",t:"先勝後戰・知己知彼",c:"#7a5c2e",
+q:"勝兵先勝而後求戰:在行動之前,就讓條件對你有利。",
+p:["知己知彼,百戰不殆","善戰者,致人而不致於人,掌握主動","不戰而屈人之兵,是上策","因勢而動,把握時機與地利","避實擊虛,順應對手與環境的弱點"],
+k:["我和對方的真實實力與條件各是什麼?","有沒有不用正面衝突就達成目標的方法?","現在的時機與局勢,對誰有利?","我是否留有退路與資源?"],
+b:"以對抗與競爭為預設,合作、長期關係的情境不一定適用。",
+r:"《孫子兵法》"},
+{n:"奧理略",e:"Marcus Aurelius",t:"斯多葛・心境穩定",c:"#4b6a7a",
+q:"分清哪些由你掌控,哪些不是,只為前者全力以赴。",
+p:["專注可控的:自己的判斷、行動與態度","障礙本身就是道路,把阻礙轉成練習","每天晨間預想困難,心裡有準備","以宇宙視角看小事,降低情緒起伏","行動合於德性,不為名聲而做"],
+k:["這件事哪些是我能控制的?","我現在的情緒,來自事實還是我的解讀?","這個阻礙,能怎麼成為我的練習?","一年後回看,這還重要嗎?"],
+b:"重在內在心態,對需要制度改革或積極爭取資源的情境要搭配策略型大師。",
+r:"《沉思錄》"},
+{n:"林區",e:"Peter Lynch",t:"選股・理財・十倍股",c:"#8a8a1f",
+q:"投資你了解的東西,做足功課,然後耐心持有好公司,讓它長大。",
+p:["投資你所知:從生活與工作中發現好公司","先把股票分類:緩慢成長、穩定成長、快速成長、週期、轉機、資產型","用本益成長比(PEG)檢查價格,別買太貴的成長","能用兩分鐘說清楚為何買,說不清就別買","不預測大盤、不擇時,關鍵是公司基本面與持有時間"],
+k:["我能簡單說明這家公司怎麼賺錢嗎?","它屬於哪一類股票,我的預期合理嗎?","現在的價格,相對於成長性便宜還是貴?","如果股價腰斬,我還敢抱嗎?為什麼?"],
+b:"擅長個股研究與長期持有,對資產配置、ETF、退休規劃與總體風險著墨較少;以上僅為思維參考,不構成投資建議,重大財務決定請諮詢專業人士。",
+r:"《彼得林區選股戰略》《彼得林區的成功投資》"},
+{n:"杜拉克",e:"Peter Drucker",t:"管理・效能・時間",c:"",
+q:"效率是把事情做對,效能是做對的事;先決定做什麼,再決定怎麼做。",
+p:["先記錄時間用在哪裡,再刪掉不該做的事","問「我該為什麼成果負責」,不是「我忙什麼」","集中力量於少數能產生最大成果的事","定期系統性放棄過時的做法","發揮長處,而不是補足弱點"],
+k:["這件事真的需要做嗎?如果不做會怎樣?","我的時間九成花在哪些事上?","我最能貢獻的成果是什麼?","有什麼事,我現在該放棄?"],
+b:"強調管理與組織的理性,對高度不確定、需要靠直覺實驗的早期創新較不直接。",
+r:"《The Effective Executive》(卓有成效的管理者)"},
+{n:"馬斯克",e:"Elon Musk",t:"第一性原理・極限目標",c:"",
+q:"把問題拆到物理上不可再分的事實,再從那裡重新推導解法。",
+p:["第一性原理:不類比既有做法,而回到基本事實","質疑每一個需求,先刪除,再簡化、加速、自動化","設定遠大目標,即使只達成一部分也很有價值","快速迭代,讓失敗成為資料","垂直整合,掌握關鍵的瓶頸環節"],
+k:["這個限制是物理定律,還是只是慣例?","我能不能直接刪掉這個步驟?","最基本的成本與事實各是什麼?","如果規模放大十倍,這個做法還成立嗎?"],
+b:"時程與風險常過度樂觀,極端的工作強度與高壓文化不適合所有人,資源有限時要小心照搬。",
+r:"《馬斯克傳》(Walter Isaacson)"},
+{n:"林納斯",e:"Linus Torvalds・Linux 創辦人",t:"工程品味・開源・務實",c:"",
+q:"先寫出能跑的東西,公開它,讓真實的使用與回饋來改進它。",
+p:["拿出程式碼說話,勝過空談計畫","小步快跑、頻繁發佈,讓更多人檢視","重視「好品味」:消除特例,讓程式更簡單","開放協作,把問題交給最多雙眼睛","為了好玩與好奇而做,也是長期動力"],
+k:["我能先做出最小可運作版本嗎?","這個設計,能不能少一個特例?","誰可以幫我檢查或回饋?","我是在解決真問題,還是在美化計畫?"],
+b:"偏工程與技術導向,溝通風格直率,他本人也曾公開承認並調整;對需要品牌、行銷、組織政治的問題幫助有限。",
+r:"《Just for Fun》(只是為了好玩)"},
+{n:"巴菲特",e:"Warren Buffett",t:"價值投資・護城河",c:"",
+q:"以合理的價格,買下優秀的公司,然後長期持有。",
+p:["堅守能力圈,看不懂的就不碰","尋找有護城河、誠信管理層的企業","安全邊際:價格要明顯低於內在價值","別人貪婪時恐懼,別人恐懼時貪婪","把股票當成企業的一部分,而不是代碼"],
+k:["這家公司十年後還在嗎,賺錢方式會更強嗎?","我能解釋它的護城河是什麼嗎?","現在的價格,有安全邊際嗎?","市場關閉五年,我仍願意持有嗎?"],
+b:"需要深入閱讀財報與耐心,對短線、週期轉折與小型新創公司不一定適用。不構成投資建議。",
+r:"《巴菲特致股東的信》"},
+{n:"孔子",e:"Confucius",t:"人格・做人・領導",q:"先修好自己,再影響別人;以身作則,勝過千言萬語。",
+p:["修身為本:從自己的品格與習慣開始","己所不欲,勿施於人(恕道)","領導者以身作則,不令而行","君子和而不同,能與人合作而不盲從","學而時習之,持續學習與反思"],
+k:["我要求別人的,自己做到了嗎?","這件事,換成我是對方,我會怎麼感受?","我是在附和,還是在負責任地表達不同意見?","這個決定,符合我長期想成為的人嗎?"],
+b:"偏重倫理、關係與秩序,對高度競爭或需要快速創新的決策,較缺乏直接的分析工具。",r:"《論語》"},
+{n:"費曼",e:"Richard Feynman",t:"理解・學習・拆解",q:"如果你不能用簡單的話講給別人聽,代表你還沒真正理解。",
+p:["費曼技巧:用最簡單的語言教給別人,卡住處就是知識缺口","最容易被騙的人是自己,所以要先對自己誠實","知道名字不等於理解,要能講出機制","把複雜問題拆成小塊,逐一動手驗證","保持好奇與玩心"],
+k:["我能不用術語,三句話解釋嗎?","我是真的理解,還是只記得名詞?","最小的可驗證實驗是什麼?","我有沒有在欺騙自己?"],
+b:"強項在科學與學習方法,對人際、組織與價值判斷的問題幫助有限。",r:"《別鬧了,費曼先生》《費曼物理學講義》"},
+{n:"尼采",e:"Friedrich Nietzsche",t:"自我超越・價值",q:"成為你自己:不斷重估價值,並克服昨日的自己。",
+p:["重估一切價值:檢查自己信奉的是否真是自己的","永恆輪迴的問題:若這一生重複無數次,你願意嗎?","把苦難與挫折轉成成長的材料","自我超越:目標是成為更強、更完整的自己","愛命運:接受並肯定自己的處境"],
+k:["這個價值,是我自己選的,還是別人給的?","如果重複過這一天一百次,我願意嗎?","我正在躲避什麼困難?","今天,我如何超越昨天的自己?"],
+b:"文本充滿隱喻、容易被誤讀,對群體合作、制度與具體決策較不實用,也不應被當成冷漠的藉口。",r:"《查拉圖斯特拉如是說》《善惡的彼岸》"},
+{n:"卡馬克",e:"John Carmack",t:"工程專注・雷神之錘",q:"專注於真正的問題,量測它,用最直接可行的方法解掉它。",
+p:["深度專注,長時間不被打斷地工作","先量測再優化,用數據而不是直覺","偏好簡單、直接、能落地的解法","持續閱讀與學習,涉獵到需要的最深處","小而強的團隊,勝過大而鬆散的組織"],
+k:["瓶頸真的在這裡嗎,我量過了嗎?","有沒有更簡單、更直接的做法?","我最近一個整塊的專注時間在哪?","我是在做,還是在討論要做?"],
+b:"極度偏工程與技術本位,對需要市場、組織與人際協調的問題需搭配其他視角。",rl:"代表作品",r:"《雷神之錘》(Quake)、《毀滅戰士》(Doom)"},
+{n:"葛拉漢",e:"Benjamin Graham",t:"安全邊際・價值投資",q:"投資的關鍵,是在價格與價值之間,留下足夠的安全邊際。",
+p:["安全邊際:用明顯低於內在價值的價格買進","市場先生寓言:把市場當作情緒化的報價者,而非導師","區分投資與投機,投資要有充分分析","分散持有,並以防守為優先","別把市場的波動,當成對自己判斷的證明"],
+k:["我估計的內在價值是多少,依據是什麼?","現在的價格,有安全邊際嗎?","這是投資還是投機?","我能承受預估錯誤的代價嗎?"],
+b:"以靜態估值與低價為主,現代以無形資產為核心的企業,效果不一定同樣。不構成投資建議。",r:"《智慧型股票投資人》《證券分析》"},
+{n:"達里歐",e:"Ray Dalio・橋水基金",t:"系統・宏觀・風險",q:"痛苦加反思等於進步:把經驗提煉成原則,讓決策變成可重複的機器。",
+p:["正視現實,不論喜不喜歡","五步驟流程:目標、找問題、診斷、設計、執行","極度求真、極度透明,鼓勵有思想的唱反調","可信度加權:聽取真正有相關經驗者的意見","把決策寫成原則,系統化"],
+k:["我的目標是什麼,擋在前面的問題是什麼?","根本原因是什麼,不是表面症狀?","誰在這件事上最有可信度?","能否把這次的處理,寫成下次可用的原則?"],
+b:"流程與制度感很強,小規模或高度個人化的決定可能顯得過重。",r:"《原則》《變化中的世界秩序》"},
+{n:"亞當・斯密",e:"Adam Smith",t:"市場・分工・制度",q:"個人追求自身利益,在良好制度下,也能促進整體的繁榮。",
+p:["分工與專業化,是生產力提升的核心","看不見的手:價格訊號協調分散的決策","市場需要法治、公平與信任的制度","自由貿易擴大市場,也擴大分工","同情心與道德感,是社會運作的基礎"],
+k:["這件事,我專精於哪一個環節?","誰的激勵,會推動這個結果?","制度與規則,是鼓勵還是扭曲行為?","市場能不能自己協調,還是需要規則?"],
+b:"十八世紀的背景,對壟斷、外部性與金融危機的處理有限,需搭配現代經濟分析。",r:"《國富論》《道德情操論》"},
+{n:"達爾文",e:"Charles Darwin",t:"演化・適應・競爭",q:"生存的不是最強的,而是最能適應環境變化的。",
+p:["變異、選擇、遺傳:持續小改變,留下有效的","適應環境,比單純變強更重要","微小差異經長時間累積,產生巨大成果","細心觀察、長期記錄,特別記下不利證據","容忍不確定,從事實修正理論"],
+k:["環境正在如何改變,我適應了嗎?","我能做多個小實驗,看哪個存活嗎?","有什麼證據,與我的想法相反?","長期累積的微小優勢,是什麼?"],
+b:"把演化類比套用在人與組織時容易過度簡化,也常被誤用為「強者生存」的藉口。",r:"《物種起源》"},
+{n:"卡內基",e:"Dale Carnegie",t:"人際關係・溝通・影響力",q:"真誠地關心別人,讓對方覺得自己重要,是所有影響力的起點。",
+p:["不批評、不責備、不抱怨,先理解對方為什麼這樣做","真誠地欣賞與讚美,滿足人想被重視的渴望","從對方的興趣與需求出發談話,讓他樂於回應","真心關心別人:微笑、記住名字、做一個好的聆聽者","避免無謂的爭論;承認錯誤,用提問取代命令"],
+k:["對方真正在乎、渴望的是什麼?","我是想贏得爭論,還是想贏得人心?","我有沒有先真誠地肯定對方?","換成對方的立場,我會怎麼看這件事?"],
+b:"偏重個人層次的人際技巧,若被誤用成表面的討好或操弄,反而失去真誠;對制度與結構性衝突幫助有限。",r:"《人性的弱點》(How to Win Friends and Influence People)"},
+{n:"愛因斯坦",e:"Albert Einstein",t:"抽象思考・重新定義問題",q:"換一個角度重新提問,往往比在舊問題裡找答案更重要。",
+p:["思想實驗:在腦中構造情境推演到極限","質疑被視為理所當然的假設","站到更高的抽象層次,尋找統一的原理","追求簡潔,但不為了簡單而失真","好奇、直覺與嚴謹驗證,缺一不可"],
+k:["我是不是問錯問題了?","哪個假設,我一直沒有質疑?","能不能用極端情境,測試這個想法?","有沒有更簡潔的統一說法?"],
+b:"偏物理與抽象理論,對需要大量人際、現實執行的決策較不直接。",r:"《愛因斯坦傳》(Walter Isaacson)"},
+{n:"亞里斯多德",e:"Aristotle",t:"邏輯・系統化",q:"先把事物分類、釐清概念與因果,再從前提推導結論。",
+p:["三段論:從明確前提,嚴謹推出結論","四因說:從材料、形式、動力、目的理解事物","分類與系統化,是理解的第一步","中庸:德行是兩個極端之間的恰當位置","以事物的目的(功能)來判斷好壞"],
+k:["我的前提是什麼,站得住嗎?","它的目的是什麼?","能否分成清楚的類別?","哪兩個極端之間,才是恰當的?"],
+b:"部分自然科學觀點已被推翻,偏重概念與推理,缺乏現代實驗與量化驗證。",r:"《尼各馬可倫理學》《工具論》"},
+{n:"大衛・艾倫",e:"David Allen",t:"GTD・清空大腦",q:"把腦中懸而未決的事放進可信賴的系統,心思才能清明地專注當下。",
+p:["收集:把所有未完成的事,從腦中倒進收件匣","釐清:逐項問「需要行動嗎?下一步具體動作是什麼?」","整理:分成下一步行動、等待中、專案、某天/也許","兩分鐘原則:兩分鐘內能完成的,立刻做掉","每週回顧:定期檢視全部清單,讓系統保持可信賴"],
+k:["這件事需要我採取行動嗎?","下一步具體、可見的動作是什麼?","這個專案完成時,成果長什麼樣子?","還有哪些懸而未決的承諾,沒被寫下來?"],
+b:"偏個人任務管理與執行層面,不能取代策略、價值觀或重大決策的判斷;也可能陷入只整理清單、不真正行動。",r:"《搞定!》(Getting Things Done)"},
+{n:"麥可・波特",e:"Michael Porter",t:"競爭策略",q:"策略的本質是取捨:選擇做什麼,更重要的是選擇不做什麼。",
+p:["五力分析:產業的獲利結構由五種力量決定","三種基本策略:成本領導、差異化、聚焦","價值鏈:找出哪些活動創造了優勢","策略是一組彼此契合、難以複製的活動","沒有取捨,就沒有策略"],
+k:["這個產業的獲利結構,由哪一種力量主導?","我的優勢,是成本、差異化還是聚焦?","我願意放棄哪些客戶與機會?","對手要複製我,有多難?"],
+b:"偏靜態的產業分析,對快速變動的平台與生態系統競爭可能解釋不足。",r:"《競爭策略》《競爭優勢》"},
+{n:"克里斯汀生",e:"Clayton Christensen",t:"破壞式創新",q:"領先企業常因把現有客戶服務得太好,而被新進者取代。",
+p:["破壞式創新常從低階市場或新市場切入","創新者的兩難:做對的事,反而讓你被淘汰","待完成的工作:客戶「雇用」產品來完成任務","資源、流程與價值觀,決定組織能做什麼","小而不起眼的市場,可能是未來的大市場"],
+k:["客戶真正想完成的工作是什麼?","誰在低端或邊緣,以更簡單便宜的方式服務客戶?","我的組織流程,會阻擋新機會嗎?","這個新市場,現在看起來是否「太小」?"],
+b:"「破壞式」概念常被過度套用,實際案例需細看,不是所有新進者都構成破壞。",r:"《創新的兩難》"},
+{n:"大前研一",e:"Kenichi Ohmae",t:"全球戰略",q:"以顧客、競爭者、公司三個角度,抓出關鍵成功因素。",
+p:["策略三角(3C):顧客、競爭者、公司缺一不可","找出關鍵成功因素,集中資源","以邏輯思考拆解問題,從真正的問題切入","用全球視野,不被單一國家邊界限制","創造性洞察:先有洞見,再用分析驗證"],
+k:["顧客真正在乎的是什麼?","競爭者的強項與弱點是什麼?","我的公司有什麼差異化能力?","這個市場,在全球範圍會怎麼變?"],
+b:"部分趨勢預測受時代影響,部分框架需依今日情境調整。",r:"《企業參謀》(The Mind of the Strategist)"},
+{n:"馮・諾伊曼",e:"John von Neumann",t:"電腦・數學・博弈",q:"把複雜的問題,抽象成可推演的數學結構與系統。",
+p:["博弈論:把決策看成多方互動,預判對手的選擇","電腦架構:程式與資料存在同一個記憶體","把問題抽象成數學模型,再用計算求解","跨領域遷移:同一套工具解多種問題","同時考慮系統整體,而不只是零件"],
+k:["這場互動的參與者與報酬是什麼?","對手最佳的回應是什麼?","能否抽象成一個更簡單的模型?","系統整體的行為,和各部分有何不同?"],
+b:"博弈模型假設理性,現實的人有偏誤與資訊限制,結論要小心套用。",r:"《博弈論與經濟行為》;《The Man from the Future》(Ananyo Bhattacharya)"},
+{n:"夏農",e:"Claude Shannon",t:"資訊理論",q:"資訊,就是不確定性的減少;先把問題簡化成能處理的模型。",
+p:["資訊量可以度量(位元與熵)","在雜訊中,仍可以可靠地傳遞訊息(通道容量)","先解簡化版,再逐步加回複雜度","把問題轉成通用的抽象模型","好奇與玩心,是創新的來源"],
+k:["這個訊號,減少了我多少不確定性?","雜訊來自哪裡,能壓低嗎?","能不能先解一個更簡單的版本?","有沒有可借用的通用模型?"],
+b:"資訊論處理訊號的傳遞,不涉及意義與價值,不能單獨用於決策。",r:"《A Mathematical Theory of Communication》;《A Mind at Play》"},
+{n:"愛比克泰德",e:"Epictetus",t:"控制・心理紀律",q:"困擾我們的不是事情本身,而是我們對事情的看法。",
+p:["分清可控(判斷、欲望、行動)與不可控(他人、結果)","困擾來自看法,可以修正看法","以實踐訓練,而不是停在理論","在每個角色中盡到應盡的責任","預想可能失去,減少失落時的衝擊"],
+k:["這件事,哪一部分在我控制內?","我受困擾的,是事實還是我的解讀?","我能把注意力放回我能做的行動嗎?","我在這個角色上,應盡的責任是什麼?"],
+b:"過度強調內在態度,可能讓人忽略對不公與制度問題採取行動,需搭配策略型視角。",r:"《手冊》《論說集》"}
+];
+const CAT={"核心圓桌":["納瓦爾","蒙格","孔子","費曼","尼采","巴菲特","林區","拿破崙希爾","杜拉克","卡馬克"],"資本與世界模型":["葛拉漢","達里歐","塔雷伯","亞當・斯密","達爾文"],"決策與思考":["卡內基","愛因斯坦","亞里斯多德","大衛・艾倫"],"商業與戰略":["麥可・波特","克里斯汀生","大前研一","孫子","貝佐斯"],"科技與工程":["馮・諾伊曼","夏農","林納斯","馬斯克"],"人生":["奧理略","愛比克泰德"]};
+const K=Object.keys(CAT);
+const byN=Object.fromEntries(RAW.map(m=>[m.n,m]));
+const M=K.flatMap(k=>CAT[k].map(n=>{const m=byN[n];m.cat=k;return m}));
+const SG={
+"納瓦爾":["我現在是用時間換錢,怎麼轉向擁有股權或可複製的產出?","如何找到自己的專長,並用程式碼或媒體當槓桿?","我想要自由,卻又焦慮收入,該怎麼取捨?"],
+"蒙格":["我要做重大決定,如何用逆向思考列出最可能失敗的原因?","這個機會在我的能力圈內嗎?怎麼判斷?","我最近的判斷,可能被哪些人性偏誤影響?"],
+"孔子":["我剛當主管,如何以身作則帶領比我資深的同事?","與親近的人意見衝突時,怎麼做才合乎「恕」與分寸?","我想修養品格,該從哪些日常行為開始?"],
+"費曼":["我想學一個新領域,如何用費曼技巧檢驗自己是否真懂?","這個複雜概念我總是抓不到本質,該怎麼拆解?","我怎麼知道自己是不是在欺騙自己?"],
+"尼采":["我感覺活在別人的期待裡,如何重估自己真正的價值?","面對一次重大挫折,如何把它轉成自我超越的材料?","如果這一生重複一百次,我現在的選擇還會一樣嗎?"],
+"巴菲特":["如何判斷一家公司有沒有護城河與安全邊際?","我想長期持有,遇到大跌時如何保持紀律?","我怎麼確定自己的能力圈在哪裡?"],
+"林區":["我從工作和生活中發現一家有潛力的公司,如何研究它是不是十倍股?","這檔股票屬於哪一類,預期是否合理?","我能不能用兩分鐘,說清楚為什麼買這檔?"],
+"拿破崙希爾":["我想定下一個明確的人生目標,該怎麼寫下來並訂出期限?","如何組成自己的智囊團,找到對的夥伴?","遇到挫折想放棄時,如何保持信念繼續前進?"],
+"杜拉克":["我每天很忙卻沒有成果,如何找出該集中的事?","我的團隊目標不清,該如何定義成果與效能?","有哪些事,我該系統性地放棄?"],
+"卡馬克":["我的程式很慢,如何用量測找出真正的瓶頸?","如何安排不被打斷的深度專注時段?","這個技術問題,有沒有更簡單直接的做法?"],
+"葛拉漢":["這支股票價格看起來便宜,如何判斷有沒有安全邊際?","市場大幅波動時,如何用「市場先生」的角度看待?","我現在是在投資,還是在投機?"],
+"達里歐":["我最近的失敗,如何寫成可重複使用的原則?","目前的環境下,我的資產配置有哪些宏觀風險?","團隊出現衝突,如何用極度透明與可信度加權做決策?"],
+"塔雷伯":["我的財務計畫哪裡脆弱,如何變得更反脆弱?","這個選擇如何設計成下行有限、上行很大?","如何用槓鈴策略分配我的資源與風險?"],
+"亞當・斯密":["我的事業該專精在哪個環節,如何運用分工?","這項制度或規則,會產生什麼樣的激勵?","在競爭的環境下,如何建立信任與聲譽?"],
+"達爾文":["環境改變了,我該如何適應,而不是硬撐?","如何設計小實驗,看哪種做法能存活?","我該從哪裡累積微小的長期優勢?"],
+"卡內基":["我和同事或家人常起衝突,如何不批評也能把話說清楚?","如何讓對方真正願意聽我說、接受我的想法?","我不太擅長社交,怎麼練習真誠地關心別人並建立好人緣?"],
+"愛因斯坦":["我卡在一個問題很久了,如何重新定義它?","我有哪些被當成理所當然的假設,該質疑?","如何用思想實驗,測試這個構想?"],
+"亞里斯多德":["如何檢查我決策的前提與推理站不站得住腳?","這件事的目的是什麼,該怎麼分類才清楚?","兩個極端之間,恰當的中庸點在哪裡?"],
+"大衛・艾倫":["我腦中事情太多、很焦慮,如何一次清空?","這個大專案,下一步行動該怎麼定義?","如何建立每週回顧,讓清單不失控?"],
+"麥可・波特":["我的事業在產業中的位置,用五力怎麼看?","我該選成本領導、差異化,還是聚焦?","我應該放棄哪些客戶或機會?"],
+"克里斯汀生":["客戶是「雇用」我的產品來完成什麼工作?","有哪些新進者,可能從低端切入威脅我?","如何避免被現有客戶綁住,而錯過新市場?"],
+"大前研一":["用 3C 分析我的事業:顧客、競爭者、公司各是什麼?","進入新市場前,關鍵成功因素是什麼?","放到全球視野,我的機會在哪裡?"],
+"孫子":["我要進入一個競爭激烈的市場,如何先勝後戰?","我與對手的真實條件各是什麼,如何避實擊虛?","有沒有不正面衝突就達成目標的方法?"],
+"貝佐斯":["這個決定是單向門還是雙向門?","以八十歲回顧,我會後悔做還是不做?","如何把客戶放在長期決策的核心?"],
+"馮・諾伊曼":["這場談判或競爭,如何用博弈論分析對手的選擇?","如何把這個問題抽象成可推演的模型?","系統整體的行為,和各部分有什麼不同?"],
+"夏農":["在大量雜訊下,如何找出真正有用的訊號?","我能先解一個簡化版的問題嗎?","這個決策,到底減少了多少不確定性?"],
+"林納斯":["我想做開源專案,如何開始並吸引協作者?","我的設計如何簡化、減少特例?","如何先做出能跑的最小版本,再迭代?"],
+"馬斯克":["如何用第一性原理拆解這個成本結構?","這個流程的哪些步驟,可以直接刪除?","如何設定遠大目標,並拆成可驗證的步驟?"],
+"奧理略":["工作壓力很大時,如何分清可控與不可控?","被人誤解或批評,如何保持內在平靜?","如何設計晨間的自我預備習慣?"],
+"愛比克泰德":["我對某件事很焦慮,哪些部分真的在我控制內?","如何修正我對這件事的看法?","在這個角色上,我應盡的責任是什麼?"]
+};
+const L=document.getElementById('list'),P=document.getElementById('panel'),T=document.getElementById('tabs');
+let cur=M[0],flt='全部';
+function esc(s){return s.replace(/[&<>]/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[x]))}
+function build(m,q){return `請你扮演 ${m.n}(${m.e}),完全用他的思維框架與核心原則,幫我看下面這個問題。
+
+【我的問題】
+${q||'(請在此填入你的問題)'}
+
+【請依序回答】
+1. 先問我 1~3 個關鍵背景問題(若資訊不足)
+2. 他會怎麼定義這個問題的本質
+3. 他會依序問自己哪些問題
+4. 他的建議方向與完整推理過程
+5. 他的思維在這個問題上的盲點
+6. 給我 3 個低風險、可立即嘗試的行動
+
+【規則】
+- 不捏造名言;不確定的以「根據其公開思想推演」標註
+- 區分「他本人明確主張」與「你的推論」
+- 只提供視角,最終決定由我做
+- 涉及法律、醫療或重大財務,請提醒我諮詢專業人士
+- 用繁體中文,條理清楚,不說空泛雞湯`}
+function mark(){M.forEach(m=>m._b.setAttribute('aria-pressed',m===cur))}
+const frag=document.createDocumentFragment();
+M.forEach(m=>{const b=document.createElement('button');b.className='pick';
+b.innerHTML=`<span class="mono">${m.n[0]}</span><span><b>${m.n}</b><small>${m.t}</small></span>`;
+b._m=m;m._b=b;frag.appendChild(b)});
+L.appendChild(frag);
+L.addEventListener('click',e=>{const b=e.target.closest('.pick');if(!b)return;cur=b._m;mark();panel(true)});
+function list(){M.forEach(m=>{m._b.hidden=!(flt==='全部'||m.cat===flt)});mark()}
+['全部',...K].forEach(k=>{const b=document.createElement('button');b.className='tab';b.textContent=k;b.setAttribute('aria-pressed',k===flt);
+b.dataset.k=k;T.appendChild(b)});
+T.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;flt=b.dataset.k;[...T.children].forEach(x=>x.setAttribute('aria-pressed',x===b));list()});
+const QA=document.createElement('textarea');
+QA.id='q';QA.name='q';QA.setAttribute('aria-label','你的問題');QA.autocomplete='off';QA.placeholder='寫下你的問題,或點上方參考提問';
+function mountQ(){document.getElementById('qslot').replaceWith(QA)}
+function panel(scroll){
+const m=cur;
+QA.value='';
+P.innerHTML=`<div class="cat">${m.cat}</div><h2>${m.n}</h2><div class="en">${m.e}</div>
+<div class="quote">${m.q}</div>
+<div class="cols"><div><h3>核心原則</h3><ul>${m.p.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+<div><h3>他會這樣問自己</h3><ul>${m.k.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+<div class="blind"><div><b>盲點:</b>${m.b}</div><div><b>${m.rl||"延伸閱讀"}:</b>${m.r}</div></div>
+<div class="ask"><h3>把你的問題交給${m.n}</h3>
+<div class="sg"><span>${m.n}式參考提問(點選帶入,可再修改)</span>${(SG[m.n]||[]).map((x,i)=>`<button class="chip" data-i="${i}">${x}</button>`).join('')}</div>
+<div id="qslot"></div>
+<div class="row"><button class="btn" id="gen">產生提問指令</button></div>
+<div id="res"></div></div>`;
+P.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{const q=document.getElementById('q');q.value=SG[m.n][c.dataset.i];q.focus()});
+
+mountQ();document.getElementById('gen').onclick=()=>{
+const q=document.getElementById('q').value.trim();
+const t=build(m,q);
+document.getElementById('res').innerHTML=`<pre id="pre">${esc(t)}</pre><div class="row"><button class="btn" id="cp">複製指令</button><button class="btn alt" id="rs">清除</button></div><div class="note">複製後貼到 Claude 對話,即可得到${m.n}視角的完整分析。</div>`;
+document.getElementById('cp').onclick=async e=>{try{await navigator.clipboard.writeText(t);e.target.textContent='已複製'}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById('pre'));const s=getSelection();s.removeAllRanges();s.addRange(r);e.target.textContent='已選取,請手動複製'}};
+document.getElementById('rs').onclick=()=>{document.getElementById('res').innerHTML=''}};
+if(scroll&&innerWidth<=860)P.scrollIntoView({behavior:'smooth'});
+}
+list();panel(false);
+</script>
+</body>
+</html>
