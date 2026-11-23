@@ -153,7 +153,6 @@
 
   <main>
     <div class="card hide" id="card">
-      <div class="mark">“</div>
       <p class="quote" id="quote" title="點一下換下一句">載入中…</p>
       <div class="divider"></div>
       <p class="author" id="author"></p>
@@ -246,7 +245,7 @@ function render(q) {
   el.textContent = q.text;
   el.classList.toggle("long", q.text.length > 40 && q.text.length <= 80);
   el.classList.toggle("xlong", q.text.length > 80);
-  $("author").textContent = q.author ? "— " + q.author : "";
+  $("author").textContent = q.author;
   $("source").textContent = q.source;
   $("date").textContent = q.date ? "收錄於 " + formatDate(q.date) : "";
 }
